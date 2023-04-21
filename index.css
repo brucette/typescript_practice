@@ -1,0 +1,16 @@
+form {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid blueviolet;
+}
+
+#first_input, #second_input, #third_input {
+    padding: 1rem 0;
+    margin: 1rem 0;
+}
+
+button {
+    width: 5rem;
+    padding: 0.5rem;
+}
