@@ -8,28 +8,36 @@
     <title>The simple form</title>
 </head>
 <body>
-    <form id="theQuestion">
-        <input 
-            type="text"
-            placeholder="WHHATT??!!"
-            id="first_input">
-        <input 
-            type="text"
-            placeholder="WHHATT??!!"
-            value=""
-            id="second_input">
-        <input 
-            type="text"
-            placeholder="One more time??!!"
-            value=""
-            id="third_input">
-        <button type="submit">
-            Press me!
-        </button>
-    </form>
+    <div class="pageWrapper">
+        <form id="theQuestion">
+            <input 
+                type="text"
+                required
+                placeholder="WHHATT??!!"
+                value=""
+                id="first_input">
+            <input 
+                type="text"
+                required
+                placeholder="WHHATT??!!"
+                value=""
+                id="second_input">
+            <input 
+                type="text"
+                required
+                placeholder="One more time??!!"
+                value=""
+                id="third_input">
+            <button type="submit">
+                Press me!
+            </button>
+        </form>
+
+        <div id="result"></div>
+    </div>
     <script
         type="text/javascript"
-        src="index.ts">
+        src="index.js">
   </script>
 </body>
 </html>

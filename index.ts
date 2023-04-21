@@ -3,24 +3,40 @@
 // 2. Add a button to submit the form once all fields are filled
 // 3. After pressing submit, clear the form and display a message that disappears after [x] seconds
 
+let userFirstEntry = "";
+let userSecondEntry = "";
+let userThirdEntry = "";
+
 let formy = document.getElementById("theQuestion");
-formy?.addEventListener("submit", () => {
-    onFormSubmit
-})
+let firstWord = document.getElementById("first_input");
+let secondWord = document.getElementById("second_input");
+let thirdWord = document.getElementById("third_input");
+let result = document.getElementById("result");
 
-const onFormSubmit = (event) => {
+formy?.addEventListener("submit", (event) => {
     event.preventDefault();
-}
+    firstWord?.value = "";
+    secondWord?.value = "";
+    thirdWord?.value = "";
+    result?.innerHTML = `${userFirstEntry} ${userSecondEntry} ${userThirdEntry}???  I see...! 🤔`
+    setTimeout(() => {
+        result?.innerHTML = "";
+    }, 4000);
+    userFirstEntry = "";
+    userSecondEntry = "";
+    userThirdEntry = "";
 
-let userFirstEntry = "moi";
+});
 
-const firstWord = document.getElementById("first_input")
 
-if (firstWord)
-    firstWord.addEventListener("change", (event) => {
+firstWord?.addEventListener("change", (event) => {
     userFirstEntry = event.currentTarget.value;
-    //console.log(event.target.value)
-    console.log(event.currentTarget.value);
-    console.log('userFirstEntry', userFirstEntry)
-})
-console.log(userFirstEntry)
+});
+
+secondWord?.addEventListener("change", (event) => {
+    userSecondEntry = event.currentTarget.value;
+});
+
+thirdWord?.addEventListener("change", (event) => {
+    userThirdEntry = event.currentTarget.value;
+});
