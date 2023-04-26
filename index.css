@@ -1,3 +1,9 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 form {
     width: 30%;
     display: flex;
@@ -14,7 +20,7 @@ form {
     width: 80%;   
 }
 
-button {
+form button {
     width: 6rem;
     padding: 0.5rem;
     font-size: 1rem;
@@ -30,11 +36,66 @@ button {
     color: #333;
 }
 
+.to_calc {
+    display: flex;
+    justify-content: flex-end;
+    background-color: plum;
+    width: 100vw;
+}
+
+.to_calc a {
+    font-size: 1.5rem;  
+    text-decoration: none;
+    padding: 1rem;
+}
+
 .pageWrapper{
     display: flex;
     flex-direction: column;
     height: 100vh;
+    width: 100vw;
     align-items: center;
     justify-content: center;
     background-color: plum;
+}
+
+.calculator {
+    border: 2px solid purple;
+    border-radius: 5px;
+    width: 80%;
+}
+
+.window {
+    padding: 1rem;
+    min-height: 4rem;
+    display: flex;
+    max-height: 5rem;
+    background-color: aliceblue;
+    border: none;
+    margin: 1rem 0;
+    width: 100%;
+    border-radius: 2px;
+    font-size: 1.2rem;    
+}
+
+.theRest {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.grid-item {
+    grid-column: span 1;
+    background-color: aliceblue;
+    text-align: center;
+    border-radius: 20px;
+    border: none;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.zero {
+    grid-column: span 2;
+    /* background-color: aliceblue; */
 }

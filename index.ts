@@ -7,6 +7,7 @@ let userFirstEntry = "";
 let userSecondEntry = "";
 let userThirdEntry = "";
 
+// Form variables
 let formy = document.getElementById("theQuestion");
 let firstWord = document.getElementById("first_input");
 let secondWord = document.getElementById("second_input");
@@ -39,4 +40,37 @@ secondWord?.addEventListener("change", (event) => {
 
 thirdWord?.addEventListener("change", (event) => {
     userThirdEntry = event.currentTarget.value;
+});
+
+
+// Calculator variables 
+const calcView: HTMLElement = document.querySelector(".window") as HTMLElement;
+// console.log(calcView.innerHTML)
+const numbers: NodeList = document.querySelectorAll(".number");
+// console.log(numbers)
+const operators = document.querySelectorAll(".operator");
+// console.log(operators)
+const enter = document.querySelector(".enter");
+
+let firstNumber: Number;
+let operator: unknown;
+let secondNumber: Number;
+let accumulator: Number;
+
+numbers.forEach((item) => {
+    item.addEventListener("click", () => {
+        // calcView.innerHTML += "";
+        // console.log(item.nodeValue)
+        // console.log(typeof item.innerHTML)
+        calcView.innerHTML = item.innerHTML;
+    })
+});
+
+operators.forEach((item) => {
+    item.addEventListener("click", () => {
+        // item.style.backgroundcolor = something else;
+        firstNumber = Number(calcView.innerHTML);
+        calcView.innerHTML = item.innerHTML;
+        operator = item.innerHTML;
+    })
 });
