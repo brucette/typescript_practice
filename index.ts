@@ -57,19 +57,34 @@ let operator: unknown;
 let secondNumber: Number;
 let accumulator: Number;
 
+
 numbers.forEach((item) => {
     item.addEventListener("click", () => {
         // calcView.innerHTML += "";
         // console.log(item.nodeValue)
         // console.log(typeof item.innerHTML)
         calcView.innerHTML = item.innerHTML;
-    })
+        operators.forEach(btn => {
+            btn.classList.remove("green")
+        });
+    });
 });
 
 operators.forEach((item) => {
     item.addEventListener("click", () => {
-        // item.style.backgroundcolor = something else;
         firstNumber = Number(calcView.innerHTML);
+        operators.forEach(btn => {
+            btn.classList.remove("green")
+        });
+        item.classList.add("green");
+
+        if (firstNumber) {
+            
+            
+        }
+        
+        console.log(item)
+        
         calcView.innerHTML = item.innerHTML;
         operator = item.innerHTML;
     })
