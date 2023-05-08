@@ -45,28 +45,44 @@ let firstNumber;
 let operator;
 let secondNumber;
 let accumulator;
+let answer;
 numbers.forEach((item) => {
     item.addEventListener("click", () => {
-        // calcView.innerHTML += "";
-        // console.log(item.nodeValue)
-        // console.log(typeof item.innerHTML)
         calcView.innerHTML = item.innerHTML;
         operators.forEach(btn => {
             btn.classList.remove("green");
         });
+        if (!firstNumber) {
+            firstNumber = item.innerHTML;
+        }
+        else if (!secondNumber) {
+            secondNumber = item.innerHTML;
+        }
     });
 });
 operators.forEach((item) => {
     item.addEventListener("click", () => {
-        firstNumber = Number(calcView.innerHTML);
         operators.forEach(btn => {
             btn.classList.remove("green");
         });
         item.classList.add("green");
-        if (firstNumber) {
-        }
-        console.log(item);
-        calcView.innerHTML = item.innerHTML;
+        // if (!firstNumber) {
+        //     firstNumber = Number(calcView.innerHTML);
+        // } else if (!secondNumber) {
+        //     secondNumber = Number(calcView.innerHTML);
+        // } else {
+        //     answer = firstNumber 
+        // }
         operator = item.innerHTML;
+        calcView.innerHTML = item.innerHTML;
     });
+});
+enter === null || enter === void 0 ? void 0 : enter.addEventListener("click", () => {
+    console.log(typeof operator);
+    console.log(firstNumber);
+    console.log(secondNumber);
+    if (operator === '+') {
+        answer = firstNumber + secondNumber;
+        calcView.innerHTML = String(answer);
+    }
 });
