@@ -46,6 +46,20 @@ let operator;
 let secondNumber;
 let accumulator;
 let answer;
+const calculateAnswer = () => {
+    if (operator === '+') {
+        answer = Number(firstNumber) + Number(secondNumber);
+    }
+    else if (operator === '-') {
+        answer = Number(firstNumber) - Number(secondNumber);
+    }
+    else if (operator === '/') {
+        answer = Number(firstNumber) / Number(secondNumber);
+    }
+    else {
+        answer = Number(firstNumber) * Number(secondNumber);
+    }
+};
 numbers.forEach((item) => {
     item.addEventListener("click", () => {
         calcView.innerHTML = item.innerHTML;
@@ -54,9 +68,11 @@ numbers.forEach((item) => {
         });
         if (!firstNumber) {
             firstNumber = item.innerHTML;
+            console.log(firstNumber);
         }
         else if (!secondNumber) {
             secondNumber = item.innerHTML;
+            console.log(secondNumber);
         }
     });
 });
@@ -66,15 +82,16 @@ operators.forEach((item) => {
             btn.classList.remove("green");
         });
         item.classList.add("green");
-        // if (!firstNumber) {
-        //     firstNumber = Number(calcView.innerHTML);
-        // } else if (!secondNumber) {
-        //     secondNumber = Number(calcView.innerHTML);
-        // } else {
-        //     answer = firstNumber 
-        // }
+        if (firstNumber && secondNumber) {
+            console.log(answer);
+            calculateAnswer();
+            calcView.innerHTML = String(answer);
+            firstNumber = answer;
+            secondNumber = '';
+            console.log('secondNumber', secondNumber);
+            //calcView.innerHTML = item.innerHTML;
+        }
         operator = item.innerHTML;
-        calcView.innerHTML = item.innerHTML;
     });
 });
 enter === null || enter === void 0 ? void 0 : enter.addEventListener("click", () => {
@@ -82,7 +99,7 @@ enter === null || enter === void 0 ? void 0 : enter.addEventListener("click", ()
     console.log(firstNumber);
     console.log(secondNumber);
     if (operator === '+') {
-        answer = firstNumber + secondNumber;
+        answer = Number(firstNumber) + Number(secondNumber);
         calcView.innerHTML = String(answer);
     }
 });

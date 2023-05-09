@@ -58,7 +58,17 @@ let secondNumber: Number;
 let accumulator: Number;
 let answer: Number;
 
-
+const calculateAnswer = () => {
+    if (operator === '+'){
+       answer = Number(firstNumber) + Number(secondNumber);
+    } else if (operator === '-') {
+        answer = Number(firstNumber) - Number(secondNumber);
+    } else if (operator === '/') {
+        answer = Number(firstNumber) / Number(secondNumber);
+    } else {
+        answer = Number(firstNumber) * Number(secondNumber);
+    }
+}
 
 numbers.forEach((item) => {
     item.addEventListener("click", () => {
@@ -69,8 +79,10 @@ numbers.forEach((item) => {
 
         if (!firstNumber) {
             firstNumber = item.innerHTML;
+            console.log(firstNumber)
         } else if (!secondNumber) {
             secondNumber = item.innerHTML;
+            console.log(secondNumber)
         }
     });
 });
@@ -83,16 +95,16 @@ operators.forEach((item) => {
         });
         item.classList.add("green");
 
-        // if (!firstNumber) {
-        //     firstNumber = Number(calcView.innerHTML);
-        // } else if (!secondNumber) {
-        //     secondNumber = Number(calcView.innerHTML);
-        // } else {
-        //     answer = firstNumber 
-        // }
-        
+        if (firstNumber && secondNumber) {
+            console.log(answer)
+            calculateAnswer()
+            calcView.innerHTML = String(answer);
+            firstNumber = answer;
+            secondNumber = '';
+            console.log('secondNumber', secondNumber)
+            //calcView.innerHTML = item.innerHTML;
+        }  
         operator = item.innerHTML;
-        calcView.innerHTML = item.innerHTML;
         
     })
 });
@@ -103,7 +115,7 @@ enter?.addEventListener("click", () => {
     console.log(secondNumber)
     
     if (operator === '+') {
-        answer = firstNumber + secondNumber;
+        answer = Number(firstNumber) + Number(secondNumber);
         calcView.innerHTML = String(answer); 
     }
     
