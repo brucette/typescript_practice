@@ -31,17 +31,18 @@ formy?.addEventListener("submit", (event) => {
 
 
 firstWord?.addEventListener("change", (event) => {
-    userFirstEntry = event.currentTarget.value;
+    userFirstEntry = event.currentTarget?.value;
 });
 
 secondWord?.addEventListener("change", (event) => {
-    userSecondEntry = event.currentTarget.value;
+    userSecondEntry = event.currentTarget?.value;
 });
 
 thirdWord?.addEventListener("change", (event) => {
-    userThirdEntry = event.currentTarget.value;
+    userThirdEntry = event.currentTarget?.value;
 });
 
+// ********* CALCULATOR ********
 
 // Calculator variables 
 const calcView: HTMLElement = document.querySelector(".window") as HTMLElement;
@@ -51,10 +52,11 @@ const numbers: NodeList = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
 // console.log(operators)
 const enter = document.querySelector(".enter");
+const clear = document.querySelector(".clear");
 
-let firstNumber: Number;
-let operator: unknown;
-let secondNumber: Number;
+let firstNumber: String;
+let operator: String;
+let secondNumber: String;
 let accumulator: Number;
 let answer: Number;
 
@@ -68,6 +70,7 @@ const calculateAnswer = () => {
     } else {
         answer = Number(firstNumber) * Number(secondNumber);
     }
+    calcView.innerHTML = String(answer);
 }
 
 numbers.forEach((item) => {
@@ -79,10 +82,8 @@ numbers.forEach((item) => {
 
         if (!firstNumber) {
             firstNumber = item.innerHTML;
-            console.log(firstNumber)
         } else if (!secondNumber) {
             secondNumber = item.innerHTML;
-            console.log(secondNumber)
         }
     });
 });
@@ -96,13 +97,9 @@ operators.forEach((item) => {
         item.classList.add("green");
 
         if (firstNumber && secondNumber) {
-            console.log(answer)
-            calculateAnswer()
-            calcView.innerHTML = String(answer);
-            firstNumber = answer;
+            calculateAnswer();
+            firstNumber = String(answer);
             secondNumber = '';
-            console.log('secondNumber', secondNumber)
-            //calcView.innerHTML = item.innerHTML;
         }  
         operator = item.innerHTML;
         
@@ -110,13 +107,17 @@ operators.forEach((item) => {
 });
 
 enter?.addEventListener("click", () => {
-    console.log(typeof operator)
-    console.log(firstNumber)
-    console.log(secondNumber)
-    
-    if (operator === '+') {
-        answer = Number(firstNumber) + Number(secondNumber);
-        calcView.innerHTML = String(answer); 
+    if (firstNumber && secondNumber) {
+        calculateAnswer();
     }
-    
-})
+});
+
+clear?.addEventListener(("click"), () => {
+    if (secondNumber) {
+        secondNumber = '';
+    } else if (operator) {
+        operator = '';
+    } else if (firstNumber) {
+        firstNumber = '';
+    }
+});

@@ -25,14 +25,18 @@ formy === null || formy === void 0 ? void 0 : formy.addEventListener("submit", (
     userThirdEntry = "";
 });
 firstWord === null || firstWord === void 0 ? void 0 : firstWord.addEventListener("change", (event) => {
-    userFirstEntry = event.currentTarget.value;
+    var _a;
+    userFirstEntry = (_a = event.currentTarget) === null || _a === void 0 ? void 0 : _a.value;
 });
 secondWord === null || secondWord === void 0 ? void 0 : secondWord.addEventListener("change", (event) => {
-    userSecondEntry = event.currentTarget.value;
+    var _a;
+    userSecondEntry = (_a = event.currentTarget) === null || _a === void 0 ? void 0 : _a.value;
 });
 thirdWord === null || thirdWord === void 0 ? void 0 : thirdWord.addEventListener("change", (event) => {
-    userThirdEntry = event.currentTarget.value;
+    var _a;
+    userThirdEntry = (_a = event.currentTarget) === null || _a === void 0 ? void 0 : _a.value;
 });
+// ********* CALCULATOR ********
 // Calculator variables 
 const calcView = document.querySelector(".window");
 // console.log(calcView.innerHTML)
@@ -41,6 +45,7 @@ const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
 // console.log(operators)
 const enter = document.querySelector(".enter");
+const clear = document.querySelector(".clear");
 let firstNumber;
 let operator;
 let secondNumber;
@@ -59,6 +64,7 @@ const calculateAnswer = () => {
     else {
         answer = Number(firstNumber) * Number(secondNumber);
     }
+    calcView.innerHTML = String(answer);
 };
 numbers.forEach((item) => {
     item.addEventListener("click", () => {
@@ -68,11 +74,9 @@ numbers.forEach((item) => {
         });
         if (!firstNumber) {
             firstNumber = item.innerHTML;
-            console.log(firstNumber);
         }
         else if (!secondNumber) {
             secondNumber = item.innerHTML;
-            console.log(secondNumber);
         }
     });
 });
@@ -83,23 +87,26 @@ operators.forEach((item) => {
         });
         item.classList.add("green");
         if (firstNumber && secondNumber) {
-            console.log(answer);
             calculateAnswer();
-            calcView.innerHTML = String(answer);
-            firstNumber = answer;
+            firstNumber = String(answer);
             secondNumber = '';
-            console.log('secondNumber', secondNumber);
-            //calcView.innerHTML = item.innerHTML;
         }
         operator = item.innerHTML;
     });
 });
 enter === null || enter === void 0 ? void 0 : enter.addEventListener("click", () => {
-    console.log(typeof operator);
-    console.log(firstNumber);
-    console.log(secondNumber);
-    if (operator === '+') {
-        answer = Number(firstNumber) + Number(secondNumber);
-        calcView.innerHTML = String(answer);
+    if (firstNumber && secondNumber) {
+        calculateAnswer();
+    }
+});
+clear === null || clear === void 0 ? void 0 : clear.addEventListener(("click"), () => {
+    if (secondNumber) {
+        secondNumber = '';
+    }
+    else if (operator) {
+        operator = '';
+    }
+    else if (firstNumber) {
+        firstNumber = '';
     }
 });
