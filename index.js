@@ -41,7 +41,7 @@ thirdWord === null || thirdWord === void 0 ? void 0 : thirdWord.addEventListener
 const calcView = document.querySelector(".window");
 // console.log(calcView.innerHTML)
 const numbers = document.querySelectorAll(".number");
-// console.log(numbers)
+console.log(numbers);
 const operators = document.querySelectorAll(".operator");
 // console.log(operators)
 const enter = document.querySelector(".enter");
@@ -66,6 +66,17 @@ const calculateAnswer = () => {
     }
     calcView.innerHTML = String(answer);
 };
+const resetView = (newValue) => {
+    calcView.innerHTML = '';
+    setTimeout(() => {
+        calcView.innerHTML = newValue;
+    }, 100);
+};
+const removeHighlight = () => {
+    operators.forEach(btn => {
+        btn.classList.remove("green");
+    });
+};
 numbers.forEach((item) => {
     item.addEventListener("click", () => {
         calcView.innerHTML = item.innerHTML;
@@ -82,9 +93,7 @@ numbers.forEach((item) => {
 });
 operators.forEach((item) => {
     item.addEventListener("click", () => {
-        operators.forEach(btn => {
-            btn.classList.remove("green");
-        });
+        removeHighlight();
         item.classList.add("green");
         if (firstNumber && secondNumber) {
             calculateAnswer();
@@ -102,11 +111,15 @@ enter === null || enter === void 0 ? void 0 : enter.addEventListener("click", ()
 clear === null || clear === void 0 ? void 0 : clear.addEventListener(("click"), () => {
     if (secondNumber) {
         secondNumber = '';
+        resetView(String(0));
     }
     else if (operator) {
         operator = '';
+        resetView(String(firstNumber));
+        removeHighlight();
     }
     else if (firstNumber) {
         firstNumber = '';
+        resetView(String(0));
     }
 });

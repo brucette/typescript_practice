@@ -48,17 +48,17 @@ thirdWord?.addEventListener("change", (event) => {
 const calcView: HTMLElement = document.querySelector(".window") as HTMLElement;
 // console.log(calcView.innerHTML)
 const numbers: NodeList = document.querySelectorAll(".number");
-// console.log(numbers)
+console.log(numbers)
 const operators = document.querySelectorAll(".operator");
 // console.log(operators)
 const enter = document.querySelector(".enter");
 const clear = document.querySelector(".clear");
 
-let firstNumber: String;
-let operator: String;
-let secondNumber: String;
-let accumulator: Number;
-let answer: Number;
+let firstNumber: string;
+let operator: string;
+let secondNumber: string;
+let accumulator: number;
+let answer: number;
 
 const calculateAnswer = () => {
     if (operator === '+'){
@@ -71,6 +71,19 @@ const calculateAnswer = () => {
         answer = Number(firstNumber) * Number(secondNumber);
     }
     calcView.innerHTML = String(answer);
+}
+
+const resetView = (newValue: string) => {
+    calcView.innerHTML = '';
+        setTimeout(() => {
+            calcView.innerHTML = newValue
+        }, 100);
+}
+
+const removeHighlight = () => {
+    operators.forEach(btn => {
+        btn.classList.remove("green")
+    });
 }
 
 numbers.forEach((item) => {
@@ -91,9 +104,8 @@ numbers.forEach((item) => {
 operators.forEach((item) => {
     item.addEventListener("click", () => {
         
-        operators.forEach(btn => {
-            btn.classList.remove("green")
-        });
+        removeHighlight();
+
         item.classList.add("green");
 
         if (firstNumber && secondNumber) {
@@ -115,9 +127,15 @@ enter?.addEventListener("click", () => {
 clear?.addEventListener(("click"), () => {
     if (secondNumber) {
         secondNumber = '';
+        resetView(String(0));
+
     } else if (operator) {
         operator = '';
+        resetView(String(firstNumber));
+        removeHighlight();
+
     } else if (firstNumber) {
         firstNumber = '';
+        resetView(String(0));
     }
 });

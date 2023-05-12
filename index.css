@@ -110,3 +110,17 @@ form button {
 .green {
     background-color: green;
 }
+
+@media (min-width: 668px) {
+
+    .calculator {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .calculator {
+        width: 20%;
+    }
+}
