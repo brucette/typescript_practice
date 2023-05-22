@@ -44,98 +44,105 @@ thirdWord?.addEventListener("change", (event) => {
 
 // ********* CALCULATOR ********
 
-// Calculator variables 
-const calcView: HTMLElement = document.querySelector(".window") as HTMLElement;
-// console.log(calcView.innerHTML)
-const numbers: NodeList = document.querySelectorAll(".number");
-console.log(numbers)
-const operators = document.querySelectorAll(".operator");
-// console.log(operators)
-const enter = document.querySelector(".enter");
-const clear = document.querySelector(".clear");
+const initApp = () => {
+    
+    // Calculator variables 
+    const calcView: HTMLElement = document.querySelector(".window") as HTMLElement;
+    const numbers: NodeList = document.querySelectorAll(".number");
+    const operators = document.querySelectorAll(".operator");
+    const enter = document.querySelector(".enter");
+    const clear = document.querySelector(".clear");
 
-let firstNumber: string;
-let operator: string;
-let secondNumber: string;
-let accumulator: number;
-let answer: number;
+    let firstNumber: string;
+    let operator: string;
+    let secondNumber: string;
+    let answer: number;
 
-const calculateAnswer = () => {
-    if (operator === '+'){
-       answer = Number(firstNumber) + Number(secondNumber);
-    } else if (operator === '-') {
-        answer = Number(firstNumber) - Number(secondNumber);
-    } else if (operator === '/') {
-        answer = Number(firstNumber) / Number(secondNumber);
-    } else {
-        answer = Number(firstNumber) * Number(secondNumber);
-    }
-    calcView.innerHTML = String(answer);
-}
+    const calculateAnswer = () => {
+        if (operator === '+'){
+        answer = Number(firstNumber) + Number(secondNumber);
+        } else if (operator === '-') {
+            answer = Number(firstNumber) - Number(secondNumber);
+        } else if (operator === '/') {
+            answer = Number(firstNumber) / Number(secondNumber);
+        } else {
+            answer = Number(firstNumber) * Number(secondNumber);
+        }
+        calcView.innerHTML = String(answer);
+        firstNumber = String(answer);
+    };
 
-const resetView = (newValue: string) => {
-    calcView.innerHTML = '';
-        setTimeout(() => {
-            calcView.innerHTML = newValue
-        }, 100);
-}
+    const resetView = (newValue: string) => {
+        calcView.innerHTML = '';
+            setTimeout(() => {
+                calcView.innerHTML = newValue
+            }, 100);
+    };
 
-const removeHighlight = () => {
-    operators.forEach(btn => {
-        btn.classList.remove("green")
-    });
-}
-
-numbers.forEach((item) => {
-    item.addEventListener("click", () => {
-        calcView.innerHTML = item.innerHTML;
+    const removeHighlight = () => {
         operators.forEach(btn => {
             btn.classList.remove("green")
         });
+    };
 
-        if (!firstNumber) {
-            firstNumber = item.innerHTML;
-        } else if (!secondNumber) {
-            secondNumber = item.innerHTML;
+    numbers.forEach((item) => {
+        item.addEventListener("click", () => {
+            calcView.innerHTML = item.innerHTML;
+            operators.forEach(btn => {
+                btn.classList.remove("green")
+            });
+
+            if (!firstNumber) {
+                firstNumber = item.innerHTML;
+                console.log('firstNumber', firstNumber)
+            } else if (!secondNumber) {
+                secondNumber = item.innerHTML;
+                console.log('secondNumber', secondNumber)
+            }
+        });
+    });
+
+    operators.forEach((item) => {
+        item.addEventListener("click", () => {
+            
+            removeHighlight();
+            item.classList.add("green");
+
+            if (firstNumber && secondNumber) {
+                calculateAnswer();
+                secondNumber = '';
+            }
+            operator = item.innerHTML;
+            console.log('operator', operator)
+        });
+    });
+
+    enter?.addEventListener("click", () => {
+
+        if (firstNumber && operator && secondNumber) {
+            calculateAnswer();
+        } else if (firstNumber && operator && !secondNumber) {
+            secondNumber = firstNumber;
+            removeHighlight();
+            calculateAnswer();
+        }
+        secondNumber = '';
+        console.log('firstNumber', firstNumber)
+        console.log('secondNumber', secondNumber)
+        
+    });
+
+    clear?.addEventListener(("click"), () => {
+        resetView(String(0));
+        if (secondNumber) {
+            secondNumber = '';
+        } else if (operator) {
+            operator = '';
+            removeHighlight();
+        } else if (firstNumber) {
+            firstNumber = '';
         }
     });
-});
+};
 
-operators.forEach((item) => {
-    item.addEventListener("click", () => {
-        
-        removeHighlight();
-
-        item.classList.add("green");
-
-        if (firstNumber && secondNumber) {
-            calculateAnswer();
-            firstNumber = String(answer);
-            secondNumber = '';
-        }  
-        operator = item.innerHTML;
-        
-    })
-});
-
-enter?.addEventListener("click", () => {
-    if (firstNumber && secondNumber) {
-        calculateAnswer();
-    }
-});
-
-clear?.addEventListener(("click"), () => {
-    if (secondNumber) {
-        secondNumber = '';
-        resetView(String(0));
-
-    } else if (operator) {
-        operator = '';
-        resetView(String(firstNumber));
-        removeHighlight();
-
-    } else if (firstNumber) {
-        firstNumber = '';
-        resetView(String(0));
-    }
-});
+document.addEventListener("DOMContentLoaded", initApp);
